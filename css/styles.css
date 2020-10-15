@@ -10031,9 +10031,13 @@ p.lead {
 
 .subheading {
   font-family: "Saira Extra Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  /*text-transform: uppercase;*/
+  text-transform: uppercase;
   font-weight: 500;
   font-size: 1.5rem;
+}
+
+.subheading .mail {
+  text-transform: lowercase;
 }
 
 #sideNav .navbar-nav .nav-item .nav-link {
