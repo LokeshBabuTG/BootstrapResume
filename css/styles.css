@@ -10036,6 +10036,10 @@ p.lead {
   font-size: 1.5rem;
 }
 
+.subheading .mail {
+  text-transform: lowercase;
+}
+
 #sideNav .navbar-nav .nav-item .nav-link {
   font-weight: 800;
   letter-spacing: 0.05rem;
