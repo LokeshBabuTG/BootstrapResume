@@ -206,24 +206,43 @@
 						</div>
 						<button type="submit" id="contactMe_submit" class="btn btn-primary">Submit</button>
 					</form>
+					<div id="contactMe_responseMessage"/>
                 </div>
             </section>
         </div>
 		
-		<template id="contactMeToast">
-			<div id="{{id}}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: relative; bottom: 0; right: 0;">
-				<div class="toast-header">
-					<img src="..." class="rounded mr-2" alt="...">
-					<strong class="mr-auto">{{header}}</strong>
-					<small class="text-muted">{timeTaken}} ago</small>
-					<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+		<template id="contactMeResponse">
+			<div class="message alert alert-{{class}}" role="alert">
+				{{toastMessage}}
+			</div>
+			<div class="orOrSeeAlso">
+				<div>
+					<p>-{{orOrSeeAlso}}-</p>
 				</div>
-				<div class="toast-body">
-					{{toastMessage}}
+				<div class="social-icons">
+					<a class="social-icon" href="https://www.linkedin.com/in/lokesh-babu-t-g-5a927a9b"><i class="fab fa-linkedin-in"></i></a>
+					<a class="social-icon" href="https://github.com/LokeshBabuTG"><i class="fab fa-github"></i></a>
+					<a class="social-icon" href="https://www.quora.com/profile/Lokesh-Babu-TG"><i class="fab fa-quora"></i></a>
 				</div>
 			</div>
+		</template>
+		
+		<template id="contactMeButton">
+				{{#if working}}
+					<button class="btn btn-primary" type="submit" id="contactMe_submit" disabled="true">
+						<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+						Sending...
+					</button>
+				{{else}}
+					<button class="btn btn-primary" type="submit" id="contactMe_submit">
+						{{#if success}}
+							Submit
+						{{else}}
+							Retry
+						{{/if}}
+					</button>
+				{{/if}}
+			
 		</template>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

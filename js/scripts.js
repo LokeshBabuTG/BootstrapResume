@@ -51,37 +51,54 @@ $("body").scrollspy({
 
 $("#contactMe_form").submit(function( event ) {
 	console.time("contactMe")
+	
 	var form = $(event.target)
+	
+	form.find("button[type='submit']").remove();
+	form.append(Handlebars.compile($("#contactMeButton").html())({working : true}));
+	
 	var arr = form.serializeArray();
 	var formData = {};
 	for(var i in arr)
 		formData[arr[i].name] = arr[i].value;
 	
+	var feedBackObject = {};
+	var buttonObject = {};
+	
 	$.getJSON( form.attr("action"), formData,  function(response) {
 		console.log( "success" );
 		form.find("input, textarea").val("");
+				
+		feedBackObject["toastMessage"] = "Thanks for your message, I will contact to Contact you back.";
+		feedBackObject["class"] = "success";
+		feedBackObject["success"] = true;
+		feedBackObject["orOrSeeAlso"] = "See Also";
 		
-		$.extend(response, {
-			header : "Message Sent",
-			timeTaken : msToTime(console.timeEnd("contactMe")),
-			toastMessage : "Thanks for your message, I will try to Contact you back.",
-			id : performance.now()
-		});
-		
-		var toast = Handlebars.compile($("#contactMeToast").html())(response);
-		
-		$("#contactMe").append($("<div>").html(toast));
-		toast = $("#" + response.id).toast();
-		$(toast).toast('show');
+		form.find("button[type='submit']").remove();
+		form.append(Handlebars.compile($("#contactMeButton").html())({working : false, success : true}));
 	})
 	.done(function() {
 		console.log( "second success" );
 	})
 	.fail(function() {
 		console.log( "error" );
+		feedBackObject["toastMessage"] = "There is a Error Sending your message. Please Try Agan after Some time";
+		feedBackObject["class"] = "danger";
+		feedBackObject["success"] = false;
+		feedBackObject["orOrSeeAlso"] = "or";
+		
+		form.find("button[type='submit']").remove();
+		form.append(Handlebars.compile($("#contactMeButton").html())({working : false, success : false}));
 	})
 	.always(function() {
 		console.log( "complete" );
+		
+		
+		var toast = Handlebars.compile($("#contactMeResponse").html())(feedBackObject);
+		
+		$("#contactMe_responseMessage").html(toast);
+		
+		setTimeout(function(){ $("#contactMe_responseMessage .message").remove(); }, 5000);
 	});
   
 	return false;
