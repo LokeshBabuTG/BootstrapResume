@@ -64,6 +64,20 @@ $("#contactMe_form").submit(function( event ) {
 	
 	var feedBackObject = {};
 	var buttonObject = {};
+
+	$.ajax({
+            url: form.attr("action"),
+            type: "POST",
+            crossDomain: true,
+            data: JSON.stringify(formData),
+            dataType: "json",
+            success: function (response) {
+                console.log( "success" );
+            },
+            error: function (xhr, status) {
+                console.log( "error" );
+            }
+        });
 	
 	$.post( form.attr("action"), formData,  function(response) {
 		console.log( "success" );
