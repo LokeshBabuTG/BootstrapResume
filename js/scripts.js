@@ -65,7 +65,7 @@ $("#contactMe_form").submit(function( event ) {
 	var feedBackObject = {};
 	var buttonObject = {};
 	
-	$.getJSON( form.attr("action"), formData,  function(response) {
+	$.post( form.attr("action"), formData,  function(response) {
 		console.log( "success" );
 		form.find("input, textarea").val("");
 				
