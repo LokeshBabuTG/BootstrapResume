@@ -79,6 +79,27 @@ $("#contactMe_form").submit(function( event ) {
             }
         });
 	
+	fetch(form.attr("action"), {
+		method: "POST",
+		mode: "no-cors",
+		header:{
+		    'Content-Type': 'application/json'
+		    },
+		body: getInputData()
+	    })
+	    .then(data=>{
+		console.log( "success" );
+	    })
+	    .catch(err=>console.error(err)); //promise based
+	
+	//populating input data
+	function getInputData(){
+	    let dataToPost = new FormData(); //formdata API
+	    for(var i in arr) dataToPost.append(arr[i].name, arr[i].value);
+	
+	    return dataToPost;
+	}
+	
 	$.post( form.attr("action"), formData,  function(response) {
 		console.log( "success" );
 		form.find("input, textarea").val("");
